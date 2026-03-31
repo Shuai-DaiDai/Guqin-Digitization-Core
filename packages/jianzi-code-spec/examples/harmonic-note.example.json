@@ -1,0 +1,90 @@
+{
+  "schema_version": "jianzi-document-v1",
+  "piece": {
+    "title": "Harmonic Sample",
+    "subtitle": "Uses the overtone handling pattern that appears in both dataset repositories.",
+    "notation_systems": [
+      "jianzipu",
+      "jianpu",
+      "musicxml"
+    ],
+    "tuning": {
+      "label": "1=F 正调定弦",
+      "strings": [
+        "C2",
+        "D2",
+        "F2",
+        "G2",
+        "A2",
+        "C3",
+        "D3"
+      ]
+    },
+    "source": {
+      "edition": "Guqin dataset overtone transcription pattern",
+      "reference_repository": "https://github.com/lukewys/Guqin-Dataset"
+    }
+  },
+  "sections": [
+    {
+      "id": "harmonic-sample",
+      "label": "Overtone figure",
+      "measures": [
+        {
+          "index": 1,
+          "time_signature": {
+            "numerator": 2,
+            "denominator": 4
+          },
+          "events": [
+            {
+              "id": "harmonic-001",
+              "visual": {
+                "char_text": "泛",
+                "layout": "top_bottom",
+                "components": {
+                  "top_left": "氵",
+                  "top_right": null,
+                  "bottom_inner": "乏",
+                  "bottom_outer": null
+                }
+              },
+              "physical": {
+                "note_type": "harmonic",
+                "string": 3,
+                "position": {
+                  "hui": 7,
+                  "fraction": 0.5
+                },
+                "right_hand": {
+                  "finger": "index",
+                  "technique": "gou"
+                },
+                "left_hand": {
+                  "finger": "none",
+                  "pitch_variation": "none",
+                  "timbre_variation": "harmonic"
+                },
+                "ornaments": [
+                  "vibrato"
+                ]
+              },
+              "acoustic": {
+                "pitch_name": "C3",
+                "midi_note": 48,
+                "duration_beats": 1,
+                "musicxml_snippet": "<note><pitch><step>C</step><octave>3</octave></pitch><duration>1</duration><notations><articulations><staccato/></articulations></notations></note>",
+                "numbered_notation": {
+                  "degree": 1,
+                  "accidental": 0,
+                  "octave_shift": 0,
+                  "harmonic_mark": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "jianzi-document-v1",
+  "piece": {
+    "title": "Stopped Note Sample",
+    "subtitle": "A simple pressed-note case modeled after the abbreviated finger-position patterns in guqincomposer.",
+    "notation_systems": [
+      "jianzipu",
+      "musicxml"
+    ],
+    "tuning": {
+      "label": "1=F 正调定弦",
+      "strings": [
+        "C2",
+        "D2",
+        "F2",
+        "G2",
+        "A2",
+        "C3",
+        "D3"
+      ]
+    },
+    "source": {
+      "edition": "guqincomposer shorthand pattern",
+      "reference_repository": "https://github.com/neuralfirings/guqincomposer"
+    }
+  },
+  "sections": [
+    {
+      "id": "stopped-note-sample",
+      "measures": [
+        {
+          "index": 1,
+          "events": [
+            {
+              "id": "stopped-note-001",
+              "visual": {
+                "char_text": "按",
+                "layout": "top_bottom",
+                "components": {
+                  "top_left": "手",
+                  "top_right": null,
+                  "bottom_inner": "安",
+                  "bottom_outer": null
+                }
+              },
+              "physical": {
+                "note_type": "stopped",
+                "string": 3,
+                "position": {
+                  "hui": 5,
+                  "fraction": 0
+                },
+                "right_hand": {
+                  "finger": "index",
+                  "technique": "gou"
+                },
+                "left_hand": {
+                  "finger": "index",
+                  "pitch_variation": "none",
+                  "timbre_variation": "stopped_string"
+                }
+              },
+              "acoustic": {
+                "pitch_name": "C3",
+                "midi_note": 48,
+                "duration_beats": 0.5,
+                "musicxml_snippet": "<note><pitch><step>C</step><octave>3</octave></pitch><duration>1</duration></note>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

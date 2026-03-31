@@ -1,0 +1,45 @@
+{
+  "schema_version": "ocr-expected-layout-v1",
+  "pages": [
+    {
+      "page_id": "page-001",
+      "expected_glyph_boxes": [
+        {
+          "bbox": [80, 120, 250, 300],
+          "label": "glyph_cluster",
+          "confidence": "high"
+        },
+        {
+          "bbox": [320, 160, 510, 340],
+          "label": "glyph_cluster",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "page_id": "page-002",
+      "expected_glyph_boxes": [
+        {
+          "bbox": [70, 90, 190, 210],
+          "label": "glyph_cluster",
+          "confidence": "high"
+        },
+        {
+          "bbox": [230, 95, 360, 220],
+          "label": "glyph_cluster",
+          "confidence": "high"
+        },
+        {
+          "bbox": [400, 120, 540, 240],
+          "label": "glyph_cluster",
+          "confidence": "high"
+        },
+        {
+          "bbox": [160, 280, 330, 410],
+          "label": "glyph_cluster",
+          "confidence": "high"
+        }
+      ]
+    }
+  ]
+}

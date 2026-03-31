@@ -1,0 +1,26 @@
+{
+  "name": "@guqin/jianzi-code-spec",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Core Jianzi-Code schema and TypeScript definitions for machine-readable guqin notation.",
+  "license": "MIT",
+  "type": "module",
+  "types": "./types/index.ts",
+  "scripts": {
+    "validate": "node scripts/validate.cjs"
+  },
+  "files": [
+    "docs",
+    "examples",
+    "OVERVIEW.zh-CN.md",
+    "schema",
+    "scripts",
+    "types",
+    "README.md"
+  ],
+  "exports": {
+    "./types": "./types/index.ts",
+    "./schema/jianzi-v1.schema.json": "./schema/jianzi-v1.schema.json",
+    "./schema/jianzi-document-v1.schema.json": "./schema/jianzi-document-v1.schema.json"
+  }
+}

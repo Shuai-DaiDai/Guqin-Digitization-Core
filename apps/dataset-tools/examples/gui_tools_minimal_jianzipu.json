@@ -1,0 +1,63 @@
+{
+  "version": "2.0",
+  "notation_type": "Jianzipu",
+  "composer": "Unknown",
+  "mode_properties": null,
+  "images": [
+    "images/sample_page_001.png"
+  ],
+  "content": [
+    {
+      "box_type": "Title",
+      "is_excluded_from_dataset": false,
+      "is_line_break": false,
+      "text_coordinates": [
+        [10, 12],
+        [80, 48]
+      ],
+      "text_content": "春晓吟",
+      "notation_coordinates": null,
+      "notation_content": null
+    },
+    {
+      "box_type": "Music",
+      "is_excluded_from_dataset": false,
+      "is_line_break": false,
+      "text_coordinates": null,
+      "text_content": null,
+      "notation_coordinates": [
+        [120, 80],
+        [180, 164]
+      ],
+      "notation_content": {
+        "type": "STRING_NUMBER",
+        "content": "3"
+      }
+    },
+    {
+      "box_type": "Music",
+      "is_excluded_from_dataset": false,
+      "is_line_break": true,
+      "text_coordinates": null,
+      "text_content": null,
+      "notation_coordinates": [
+        [192, 80],
+        [276, 192]
+      ],
+      "notation_content": {
+        "type": "FULL_JIANZIPU",
+        "content": {
+          "content": "⿱",
+          "children": [
+            {
+              "content": "勹"
+            },
+            {
+              "content": "小"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

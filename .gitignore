@@ -1,0 +1,40 @@
+# macOS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Node / pnpm
+node_modules/
+dist/
+build/
+coverage/
+.pnpm-store/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Environment / secrets
+.env
+.env.*
+
+# Large or generated project assets
+.data/
+**/.data/
+assets/
+**/assets/
+weights/
+**/weights/
+outputs/
+qupu/

@@ -1,0 +1,3 @@
+source_id,piece_title,source_book,edition_note,image_file,page_number_original,page_number_in_piece,source_url,tuning,performer_or_transcriber,rights_note,quality_note,remarks
+manual-demo-piece,平沙落雁,某影印谱本,测试样例,images/manual_page_001.png,12,1,https://example.org/source-a,正调定弦,测试整理者,仅作研究测试,清晰,首页样例
+manual-demo-piece,平沙落雁,某影印谱本,测试样例,images/manual_page_002.png,13,2,https://example.org/source-a,正调定弦,测试整理者,仅作研究测试,轻微倾斜,第二页样例

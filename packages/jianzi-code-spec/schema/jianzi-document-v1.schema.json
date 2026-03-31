@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://guqin.dev/schema/jianzi-document-v1.schema.json",
+  "title": "Jianzi-Code Document v1",
+  "description": "Canonical score-level wrapper for Jianzi-Code note events.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "piece",
+    "sections"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "jianzi-document-v1"
+    },
+    "piece": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "notation_systems",
+        "tuning",
+        "source"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "notation_systems": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "jianzipu",
+              "jianpu",
+              "musicxml",
+              "midi",
+              "nltabs"
+            ]
+          }
+        },
+        "tuning": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "strings"
+          ],
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "strings": {
+              "type": "array",
+              "minItems": 7,
+              "maxItems": 7,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-G](?:#|b)?-?[0-9]{1,2}$"
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "edition"
+          ],
+          "properties": {
+            "edition": {
+              "type": "string",
+              "minLength": 1
+            },
+            "original_source": {
+              "type": "string"
+            },
+            "performer": {
+              "type": "string"
+            },
+            "transcriber": {
+              "type": "string"
+            },
+            "reference_repository": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/section"
+      }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "measures"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$"
+        },
+        "label": {
+          "type": "string"
+        },
+        "measures": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/measure"
+          }
+        }
+      }
+    },
+    "measure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "events"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "time_signature": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "numerator",
+            "denominator"
+          ],
+          "properties": {
+            "numerator": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "denominator": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                4,
+                8,
+                16,
+                32
+              ]
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "./jianzi-v1.schema.json"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "schema_version": "jianzi-document-v1",
+      "piece": {
+        "title": "示例曲",
+        "notation_systems": [
+          "jianzipu",
+          "jianpu",
+          "musicxml"
+        ],
+        "tuning": {
+          "label": "1=F 正调定弦",
+          "strings": [
+            "C2",
+            "D2",
+            "F2",
+            "G2",
+            "A2",
+            "C3",
+            "D3"
+          ]
+        },
+        "source": {
+          "edition": "古琴名师琴谱集录",
+          "reference_repository": "https://github.com/lukewys/Guqin-Dataset"
+        }
+      },
+      "sections": [
+        {
+          "id": "section-01",
+          "label": "第一段",
+          "measures": [
+            {
+              "index": 1,
+              "time_signature": {
+                "numerator": 4,
+                "denominator": 4
+              },
+              "events": [
+                {
+                  "id": "note-0001",
+                  "visual": {
+                    "char_text": "泛",
+                    "layout": "top_bottom",
+                    "components": {
+                      "top_left": "勹",
+                      "top_right": "一",
+                      "bottom_inner": "小",
+                      "bottom_outer": null
+                    }
+                  },
+                  "physical": {
+                    "note_type": "harmonic",
+                    "string": 3,
+                    "position": {
+                      "hui": 7,
+                      "fraction": 0.5
+                    },
+                    "right_hand": {
+                      "finger": "index",
+                      "technique": "gou"
+                    },
+                    "left_hand": {
+                      "finger": "none",
+                      "pitch_variation": "none",
+                      "timbre_variation": "harmonic"
+                    }
+                  },
+                  "acoustic": {
+                    "pitch_name": "C3",
+                    "midi_note": 48,
+                    "duration_beats": 1,
+                    "musicxml_snippet": "<note><pitch><step>C</step><octave>3</octave></pitch><duration>1</duration></note>",
+                    "numbered_notation": {
+                      "degree": 1,
+                      "accidental": 0,
+                      "octave_shift": 0,
+                      "harmonic_mark": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

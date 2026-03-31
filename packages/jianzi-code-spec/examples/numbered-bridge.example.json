@@ -1,0 +1,130 @@
+{
+  "schema_version": "jianzi-document-v1",
+  "piece": {
+    "title": "Numbered Notation Bridge Sample",
+    "subtitle": "Bridges the simplified numbered-notation transcription style used in the dataset repositories.",
+    "notation_systems": [
+      "jianzipu",
+      "jianpu",
+      "musicxml",
+      "midi"
+    ],
+    "tuning": {
+      "label": "1=F 正调定弦",
+      "strings": [
+        "C2",
+        "D2",
+        "F2",
+        "G2",
+        "A2",
+        "C3",
+        "D3"
+      ]
+    },
+    "source": {
+      "edition": "Guqin dataset numbered-notation transcription pattern",
+      "reference_repository": "https://github.com/lukewys/Guqin-Dataset"
+    }
+  },
+  "sections": [
+    {
+      "id": "bridge-section",
+      "label": "Bridge to numbered notation",
+      "measures": [
+        {
+          "index": 1,
+          "time_signature": {
+            "numerator": 4,
+            "denominator": 4
+          },
+          "events": [
+            {
+              "id": "bridge-001",
+              "visual": {
+                "char_text": "泛",
+                "layout": "top_bottom",
+                "components": {
+                  "top_left": "氵",
+                  "top_right": null,
+                  "bottom_inner": "乏",
+                  "bottom_outer": null
+                }
+              },
+              "physical": {
+                "note_type": "harmonic",
+                "string": 3,
+                "position": {
+                  "hui": 7,
+                  "fraction": 0.5
+                },
+                "right_hand": {
+                  "finger": "index",
+                  "technique": "gou"
+                },
+                "left_hand": {
+                  "finger": "none",
+                  "pitch_variation": "none",
+                  "timbre_variation": "harmonic"
+                }
+              },
+              "acoustic": {
+                "pitch_name": "C3",
+                "midi_note": 48,
+                "duration_beats": 1,
+                "musicxml_snippet": "<note><pitch><step>C</step><octave>3</octave></pitch><duration>1</duration></note>",
+                "numbered_notation": {
+                  "degree": 1,
+                  "accidental": 0,
+                  "octave_shift": 0,
+                  "harmonic_mark": true
+                }
+              }
+            },
+            {
+              "id": "bridge-002",
+              "visual": {
+                "char_text": "宫",
+                "layout": "single",
+                "components": {
+                  "top_left": null,
+                  "top_right": null,
+                  "bottom_inner": null,
+                  "bottom_outer": null
+                }
+              },
+              "physical": {
+                "note_type": "open",
+                "string": 1,
+                "position": {
+                  "hui": null,
+                  "fraction": null
+                },
+                "right_hand": {
+                  "finger": "thumb",
+                  "technique": "mo"
+                },
+                "left_hand": {
+                  "finger": "none",
+                  "pitch_variation": "none",
+                  "timbre_variation": "open_string"
+                }
+              },
+              "acoustic": {
+                "pitch_name": "G2",
+                "midi_note": 43,
+                "duration_beats": 1,
+                "musicxml_snippet": "<note><pitch><step>G</step><octave>2</octave></pitch><duration>1</duration></note>",
+                "numbered_notation": {
+                  "degree": 5,
+                  "accidental": 0,
+                  "octave_shift": 0,
+                  "harmonic_mark": false
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

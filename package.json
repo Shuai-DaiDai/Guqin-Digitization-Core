@@ -1,0 +1,20 @@
+{
+  "name": "guqin-digitization-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Monorepo for guqin jianzipu digitization, OCR, and machine-readable Jianzi-Code tooling.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "generate:types": "json2ts packages/jianzi-code-spec/schema/jianzi-v1.schema.json -o packages/jianzi-code-spec/types/index.ts",
+    "check:schema": "node packages/jianzi-code-spec/scripts/validate.cjs",
+    "validate:jianzi-code": "node packages/jianzi-code-spec/scripts/validate.cjs"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "^15.0.3",
+    "typescript": "^5.8.2"
+  }
+}

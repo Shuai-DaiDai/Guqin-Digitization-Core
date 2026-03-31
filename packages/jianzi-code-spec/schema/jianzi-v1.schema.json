@@ -1,0 +1,509 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://guqin.dev/schema/jianzi-v1.schema.json",
+  "title": "Jianzi-Code Note Event v1",
+  "description": "A strict three-layer schema for a single guqin jianzipu note event.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "visual",
+    "physical",
+    "acoustic"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$",
+      "description": "Stable event identifier within a score document."
+    },
+    "visual": {
+      "type": "object",
+      "description": "Visual layer for glyph rendering and OCR alignment.",
+      "additionalProperties": false,
+      "required": [
+        "char_text",
+        "layout",
+        "components"
+      ],
+      "properties": {
+        "char_text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Fallback full Han character text for the jianzi glyph."
+        },
+        "layout": {
+          "$ref": "#/$defs/visualLayout"
+        },
+        "components": {
+          "type": "object",
+          "description": "Canonical component slots used for visual decomposition.",
+          "additionalProperties": false,
+          "required": [
+            "top_left",
+            "top_right",
+            "bottom_inner",
+            "bottom_outer"
+          ],
+          "properties": {
+            "top_left": {
+              "$ref": "#/$defs/componentSlot"
+            },
+            "top_right": {
+              "$ref": "#/$defs/componentSlot"
+            },
+            "bottom_inner": {
+              "$ref": "#/$defs/componentSlot"
+            },
+            "bottom_outer": {
+              "$ref": "#/$defs/componentSlot"
+            }
+          }
+        }
+      }
+    },
+    "physical": {
+      "type": "object",
+      "description": "Human performance layer that captures playing actions.",
+      "additionalProperties": false,
+      "required": [
+        "note_type",
+        "string",
+        "position",
+        "right_hand",
+        "left_hand"
+      ],
+      "properties": {
+        "note_type": {
+          "$ref": "#/$defs/noteType"
+        },
+        "string": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7,
+          "description": "Guqin string number."
+        },
+        "position": {
+          "type": "object",
+          "description": "Hui position and fractional subdivision on the string.",
+          "additionalProperties": false,
+          "required": [
+            "hui",
+            "fraction"
+          ],
+          "properties": {
+            "hui": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 13
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Hui marker index."
+            },
+            "fraction": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Fractional offset between hui markers, normalized to [0, 1)."
+            }
+          }
+        },
+        "right_hand": {
+          "type": "object",
+          "description": "Right-hand plucking instruction.",
+          "additionalProperties": false,
+          "required": [
+            "finger",
+            "technique"
+          ],
+          "properties": {
+            "finger": {
+              "$ref": "#/$defs/rightHandFinger"
+            },
+            "technique": {
+              "$ref": "#/$defs/rightHandTechnique"
+            }
+          }
+        },
+        "left_hand": {
+          "type": "object",
+          "description": "Left-hand fingering and expression instruction.",
+          "additionalProperties": false,
+          "required": [
+            "finger",
+            "pitch_variation",
+            "timbre_variation"
+          ],
+          "properties": {
+            "finger": {
+              "$ref": "#/$defs/leftHandFinger"
+            },
+            "pitch_variation": {
+              "$ref": "#/$defs/leftHandPitchVariation"
+            },
+            "timbre_variation": {
+              "$ref": "#/$defs/leftHandTimbreVariation"
+            }
+          }
+        },
+        "ornaments": {
+          "type": "array",
+          "description": "Extra performance markings such as slides, slurs, grace connections, and vibrato.",
+          "items": {
+            "$ref": "#/$defs/ornamentToken"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "acoustic": {
+      "type": "object",
+      "description": "Modern music output layer.",
+      "additionalProperties": false,
+      "required": [
+        "pitch_name",
+        "midi_note",
+        "duration_beats",
+        "musicxml_snippet"
+      ],
+      "properties": {
+        "pitch_name": {
+          "type": "string",
+          "pattern": "^[A-G](?:#|b)?-?[0-9]{1,2}$",
+          "description": "Rendered pitch name, for example C3 or Bb2."
+        },
+        "midi_note": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127,
+          "description": "MIDI note number."
+        },
+        "duration_beats": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Duration in beats."
+        },
+        "musicxml_snippet": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Minimal MusicXML fragment representing this note event."
+        },
+        "numbered_notation": {
+          "$ref": "#/$defs/numberedNotation"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "noteType": {
+      "type": "string",
+      "enum": [
+        "open",
+        "stopped",
+        "harmonic"
+      ]
+    },
+    "componentSlot": {
+      "description": "A visual component placed in a canonical slot. Null means the slot is not used in this glyph.",
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "visualLayout": {
+      "type": "string",
+      "enum": [
+        "single",
+        "top_bottom",
+        "left_right",
+        "top_middle_bottom",
+        "top_left_right_bottom",
+        "enclosing",
+        "surround",
+        "complex"
+      ]
+    },
+    "rightHandFinger": {
+      "type": "string",
+      "enum": [
+        "thumb",
+        "index",
+        "middle",
+        "ring",
+        "little",
+        "unknown"
+      ]
+    },
+    "leftHandFinger": {
+      "type": "string",
+      "enum": [
+        "thumb",
+        "index",
+        "middle",
+        "ring",
+        "little",
+        "none",
+        "unknown"
+      ]
+    },
+    "rightHandTechnique": {
+      "description": "Common right-hand techniques. Use custom:<name> to extend.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "gou",
+            "mo",
+            "tiao",
+            "ti",
+            "da",
+            "bo",
+            "fu",
+            "lun",
+            "pi",
+            "zhai"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^custom:.+$"
+        }
+      ]
+    },
+    "leftHandPitchVariation": {
+      "description": "Common pitch-shaping actions. Use custom:<name> to extend.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "none",
+            "yin",
+            "nao",
+            "chuo",
+            "zhu",
+            "jin",
+            "tui",
+            "fanqi"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^custom:.+$"
+        }
+      ]
+    },
+    "leftHandTimbreVariation": {
+      "description": "Common timbre categories. Use custom:<name> to extend.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "none",
+            "open_string",
+            "harmonic",
+            "stopped_string",
+            "vibrato",
+            "slide_resonance"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^custom:.+$"
+        }
+      ]
+    },
+    "ornamentToken": {
+      "description": "Common ornaments and note-to-note relations. Use custom:<name> to extend.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "vibrato",
+            "slide_in",
+            "slide_out",
+            "grace_start",
+            "grace_continue",
+            "grace_end",
+            "slur_start",
+            "slur_continue",
+            "slur_end"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^custom:.+$"
+        }
+      ]
+    },
+    "numberedNotation": {
+      "type": "object",
+      "description": "Optional bridge to the numbered-notation datasets.",
+      "additionalProperties": false,
+      "required": [
+        "degree",
+        "accidental",
+        "octave_shift",
+        "harmonic_mark"
+      ],
+      "properties": {
+        "degree": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "accidental": {
+          "type": "integer",
+          "enum": [
+            -1,
+            0,
+            1
+          ]
+        },
+        "octave_shift": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "harmonic_mark": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "physical": {
+            "properties": {
+              "note_type": {
+                "const": "open"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "physical": {
+            "properties": {
+              "position": {
+                "properties": {
+                  "hui": {
+                    "type": "null"
+                  },
+                  "fraction": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "physical": {
+            "properties": {
+              "note_type": {
+                "enum": [
+                  "stopped",
+                  "harmonic"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "physical": {
+            "properties": {
+              "position": {
+                "properties": {
+                  "hui": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 13
+                  },
+                  "fraction": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMaximum": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "note-0001",
+      "visual": {
+        "char_text": "泛",
+        "layout": "top_bottom",
+        "components": {
+          "top_left": "勹",
+          "top_right": "一",
+          "bottom_inner": "小",
+          "bottom_outer": null
+        }
+      },
+      "physical": {
+        "note_type": "harmonic",
+        "string": 3,
+        "position": {
+          "hui": 7,
+          "fraction": 0.5
+        },
+        "right_hand": {
+          "finger": "index",
+          "technique": "gou"
+        },
+        "left_hand": {
+          "finger": "none",
+          "pitch_variation": "none",
+          "timbre_variation": "harmonic"
+        },
+        "ornaments": [
+          "vibrato"
+        ]
+      },
+      "acoustic": {
+        "pitch_name": "C3",
+        "midi_note": 48,
+        "duration_beats": 1,
+        "musicxml_snippet": "<note><pitch><step>C</step><octave>3</octave></pitch><duration>1</duration></note>",
+        "numbered_notation": {
+          "degree": 1,
+          "accidental": 0,
+          "octave_shift": 0,
+          "harmonic_mark": true
+        }
+      }
+    }
+  ]
+}

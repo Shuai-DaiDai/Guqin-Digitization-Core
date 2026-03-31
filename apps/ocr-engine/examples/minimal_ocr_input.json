@@ -1,0 +1,18 @@
+{
+  "schema_version": "ocr-input-v1",
+  "workspace_name": "ocr-engine-minimal-demo",
+  "pages": [
+    {
+      "page_id": "page-001",
+      "image_file": "minimal_page_001.png",
+      "page_number": 1,
+      "note": "Synthetic page with two glyph-like clusters and one separator band."
+    },
+    {
+      "page_id": "page-002",
+      "image_file": "minimal_page_002.png",
+      "page_number": 2,
+      "note": "Synthetic page with four smaller glyph-like clusters."
+    }
+  ]
+}

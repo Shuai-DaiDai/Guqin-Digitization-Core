@@ -1,0 +1,14 @@
+{
+  "metadata_path": "apps/dataset-tools/examples/manual_metadata_minimal.csv",
+  "annotations_path": "apps/dataset-tools/examples/manual_annotations_minimal.csv",
+  "metadata_rows": 2,
+  "annotation_rows": 3,
+  "error_count": 0,
+  "warning_count": 2,
+  "errors": [],
+  "warnings": [
+    "metadata.csv 第 1 行引用的图片不存在: images/manual_page_001.png",
+    "metadata.csv 第 2 行引用的图片不存在: images/manual_page_002.png"
+  ],
+  "is_valid": true
+}

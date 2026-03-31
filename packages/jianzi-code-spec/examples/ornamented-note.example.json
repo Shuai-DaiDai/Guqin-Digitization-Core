@@ -1,0 +1,83 @@
+{
+  "schema_version": "jianzi-document-v1",
+  "piece": {
+    "title": "Ornamented Note Sample",
+    "subtitle": "Captures the slide and grace-marking patterns found in guqincomposer shorthand.",
+    "notation_systems": [
+      "jianzipu",
+      "nltabs",
+      "musicxml"
+    ],
+    "tuning": {
+      "label": "g, a, c d e g a",
+      "strings": [
+        "G2",
+        "A2",
+        "C3",
+        "D3",
+        "E3",
+        "G3",
+        "A3"
+      ]
+    },
+    "source": {
+      "edition": "guqincomposer shorthand pattern",
+      "reference_repository": "https://github.com/neuralfirings/guqincomposer"
+    }
+  },
+  "sections": [
+    {
+      "id": "ornamented-sample",
+      "label": "Slur and slide",
+      "measures": [
+        {
+          "index": 1,
+          "events": [
+            {
+              "id": "ornamented-001",
+              "visual": {
+                "char_text": "吟",
+                "layout": "left_right",
+                "components": {
+                  "top_left": "口",
+                  "top_right": null,
+                  "bottom_inner": "今",
+                  "bottom_outer": null
+                }
+              },
+              "physical": {
+                "note_type": "stopped",
+                "string": 2,
+                "position": {
+                  "hui": 4,
+                  "fraction": 0.25
+                },
+                "right_hand": {
+                  "finger": "thumb",
+                  "technique": "mo"
+                },
+                "left_hand": {
+                  "finger": "middle",
+                  "pitch_variation": "yin",
+                  "timbre_variation": "stopped_string"
+                },
+                "ornaments": [
+                  "grace_start",
+                  "slide_in",
+                  "vibrato",
+                  "slur_end"
+                ]
+              },
+              "acoustic": {
+                "pitch_name": "A2",
+                "midi_note": 45,
+                "duration_beats": 1,
+                "musicxml_snippet": "<note><pitch><step>A</step><octave>2</octave></pitch><duration>1</duration><notations><slur type=\"start\"/></notations></note>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

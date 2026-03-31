@@ -1,0 +1,4 @@
+review_id,decision_status,resolved_issues,resolved_string,resolved_hui,resolved_fraction,resolved_right_hand_technique,resolved_left_hand_finger,resolved_pitch_name,resolved_midi_note,resolved_duration_beats,resolved_musicxml_snippet,resolution_note
+manual-demo-piece-glyph-00001-candidate,applied,unresolved_right_hand_technique|missing_position,3,7,0.0,gou,none,,,,,补录散音基本信息
+manual-demo-piece-glyph-00002-candidate,applied,unresolved_left_hand_finger|missing_position,3,7,0.5,gou,index,,,,,确认右手勾与左手按弦
+manual-demo-piece-glyph-00003-candidate,applied,unresolved_right_hand_technique|unresolved_left_hand_finger|missing_acoustic_layer,3,7,0.5,mo,index,C4,60,1.0,<note><pitch><step>C</step><octave>4</octave></pitch><duration>1</duration></note>,补录按音结果

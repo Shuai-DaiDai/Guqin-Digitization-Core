@@ -1,0 +1,6 @@
+{
+  "name": "@guqin/review-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static OCR review interface for Guqin Digitization Core."
+}

@@ -1,0 +1,73 @@
+{
+  "version": "2.0",
+  "notation_type": "Jianzipu",
+  "composer": "Jiang Kui",
+  "piece_title": "KuiSCIMA Demo Piece",
+  "mode_properties": {
+    "mode": "demo"
+  },
+  "images": [
+    "images/kuiscima_page_001.png",
+    "images/kuiscima_page_002.png"
+  ],
+  "content": [
+    {
+      "image_index": 0,
+      "box_type": "Title",
+      "text_coordinates": [
+        [24, 16],
+        [140, 52]
+      ],
+      "text_content": "白石道人歌曲",
+      "notation_coordinates": null,
+      "notation_content": null,
+      "is_excluded_from_dataset": false,
+      "is_line_break": false
+    },
+    {
+      "image_index": 0,
+      "box_type": "Music",
+      "text_coordinates": null,
+      "text_content": null,
+      "notation_coordinates": [
+        [150, 90],
+        [212, 198]
+      ],
+      "notation_content": {
+        "type": "LEFT_HAND",
+        "content": [
+          "吟",
+          "绰"
+        ]
+      },
+      "is_excluded_from_dataset": false,
+      "is_line_break": false
+    },
+    {
+      "image_index": 1,
+      "box_type": "Music",
+      "text_coordinates": null,
+      "text_content": null,
+      "notation_coordinates": [
+        [48, 76],
+        [116, 180]
+      ],
+      "notation_content": {
+        "type": "FULL_JIANZIPU",
+        "content": {
+          "content": "⿰",
+          "children": [
+            {
+              "content": "亻"
+            },
+            {
+              "content": "勾"
+            }
+          ]
+        }
+      },
+      "is_excluded_from_dataset": false,
+      "is_line_break": true
+    }
+  ]
+}

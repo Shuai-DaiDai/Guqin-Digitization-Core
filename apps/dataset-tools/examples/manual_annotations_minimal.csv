@@ -1,0 +1,4 @@
+image_file,line_index,glyph_index,bbox_x1,bbox_y1,bbox_x2,bbox_y2,char_guess,component_guess,confidence,needs_review,note,note_type,string_number,hui_guess,fraction_guess,right_hand_guess,left_hand_guess
+images/manual_page_001.png,1,1,40,80,95,148,三,,medium,yes,仅识别到弦位,open,3,,,, 
+images/manual_page_001.png,1,2,120,82,186,152,勾,勹|勾,medium,yes,右手技法待确认,stopped,3,,,gou,
+images/manual_page_002.png,2,1,60,90,138,174,吟绰,吟|绰,low,yes,左手复合动作,stopped,,7,0.5,,吟|绰

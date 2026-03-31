@@ -1,0 +1,81 @@
+{
+  "schema_version": "jianzi-document-v1",
+  "piece": {
+    "title": "Open String Sample",
+    "subtitle": "Derived from the simple string-number and right-hand entry patterns used in guqincomposer shorthand.",
+    "notation_systems": [
+      "jianzipu",
+      "nltabs",
+      "musicxml"
+    ],
+    "tuning": {
+      "label": "g, a, c d e g a",
+      "strings": [
+        "G2",
+        "A2",
+        "C3",
+        "D3",
+        "E3",
+        "G3",
+        "A3"
+      ]
+    },
+    "source": {
+      "edition": "guqincomposer shorthand pattern",
+      "reference_repository": "https://github.com/neuralfirings/guqincomposer"
+    }
+  },
+  "sections": [
+    {
+      "id": "open-string-sample",
+      "label": "Single open-string event",
+      "measures": [
+        {
+          "index": 1,
+          "time_signature": {
+            "numerator": 1,
+            "denominator": 4
+          },
+          "events": [
+            {
+              "id": "open-string-001",
+              "visual": {
+                "char_text": "七",
+                "layout": "single",
+                "components": {
+                  "top_left": null,
+                  "top_right": null,
+                  "bottom_inner": null,
+                  "bottom_outer": null
+                }
+              },
+              "physical": {
+                "note_type": "open",
+                "string": 1,
+                "position": {
+                  "hui": null,
+                  "fraction": null
+                },
+                "right_hand": {
+                  "finger": "thumb",
+                  "technique": "mo"
+                },
+                "left_hand": {
+                  "finger": "none",
+                  "pitch_variation": "none",
+                  "timbre_variation": "open_string"
+                }
+              },
+              "acoustic": {
+                "pitch_name": "G2",
+                "midi_note": 43,
+                "duration_beats": 1,
+                "musicxml_snippet": "<note><pitch><step>G</step><octave>2</octave></pitch><duration>1</duration></note>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guqin OCR Review</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="auth-overlay hidden" id="auth-overlay">
+      <div class="auth-card">
+        <p class="eyebrow">Protected Review Session</p>
+        <h2>输入校对令牌</h2>
+        <p class="auth-copy">
+          这个页面需要令牌才能提交结果。输入后，系统会自动保存你的点选结果。
+        </p>
+        <label class="note-field">
+          <span>Token</span>
+          <input id="token-input" type="password" placeholder="请输入 token" />
+        </label>
+        <div class="decision-row auth-actions">
+          <button id="token-submit" class="decision-btn correct" type="button">进入页面</button>
+          <button id="token-local-only" class="decision-btn neutral" type="button">仅本地查看</button>
+        </div>
+        <p id="token-error" class="auth-error"></p>
+      </div>
+    </div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Guqin Digitization Core</p>
+          <h1 id="site-title">OCR 校对页</h1>
+          <p class="subline" id="site-subtitle">加载中...</p>
+        </div>
+        <div class="toolbar">
+          <label class="toolbar-field">
+            <span>页面</span>
+            <select id="page-select"></select>
+          </label>
+          <label class="toolbar-field">
+            <span>筛选</span>
+            <select id="status-filter">
+              <option value="all">全部</option>
+              <option value="undecided">未处理</option>
+              <option value="correct">正确</option>
+              <option value="wrong">错误</option>
+              <option value="skipped">跳过</option>
+            </select>
+          </label>
+          <button id="export-json" type="button">导出 JSON</button>
+          <button id="export-csv" type="button">导出 CSV</button>
+          <label class="import-label" for="import-json">导入 JSON</label>
+          <input id="import-json" type="file" accept="application/json" hidden />
+        </div>
+      </header>
+
+      <section class="summary-grid">
+        <article class="summary-card">
+          <span>总条目</span>
+          <strong id="summary-total">0</strong>
+        </article>
+        <article class="summary-card">
+          <span>已完成</span>
+          <strong id="summary-reviewed">0</strong>
+        </article>
+        <article class="summary-card">
+          <span>正确</span>
+          <strong id="summary-correct">0</strong>
+        </article>
+        <article class="summary-card">
+          <span>错误</span>
+          <strong id="summary-wrong">0</strong>
+        </article>
+        <article class="summary-card">
+          <span>已完成页</span>
+          <strong id="summary-pages-complete">0</strong>
+        </article>
+      </section>
+
+      <section class="rules-panel">
+        <div class="rules-header">
+          <h2>框选规则</h2>
+          <p>先判断“是不是一个独立写出来的记号单元”，不要先按音乐意义并框。</p>
+        </div>
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>应该算一个框</h3>
+            <ul>
+              <li>一个完整减字，或一个完整独立记号。</li>
+              <li>本来就是一个合体字，拆开后任何一块都不成完整记号。</li>
+            </ul>
+          </article>
+          <article class="rule-card">
+            <h3>应该拆成多个框</h3>
+            <ul>
+              <li>主音减字和后面另外单独写出的修饰、后续处理。</li>
+              <li>像打圆、带起、挠这类，如果是单独写出来的，就各自单独成框。</li>
+              <li>例如“名七六挑七”后面的“挠”，以及后面的“带起”，都应分别成框。</li>
+              <li>即使音乐上属于同一个音的后续动作，只要视觉上是分写的，也分框。</li>
+            </ul>
+          </article>
+          <article class="rule-card">
+            <h3>应该判错</h3>
+            <ul>
+              <li>一个框里包了两个独立记号。</li>
+              <li>框到半个字、漏了关键部分，或把说明字、简谱、页码也包进去了。</li>
+              <li>目录、封面、页码、书名、题名、说明文字这类正文外文字，不算正文减字；框到它们时判错。</li>
+              <li>页面里有明显漏框时，先把现有错误标出来，并在备注写“有漏框”。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <main class="workspace">
+        <section class="viewer-panel">
+          <div class="viewer-header">
+            <div>
+              <h2 id="page-label">页图</h2>
+              <p id="page-meta">-</p>
+            </div>
+            <div class="hint">点击框或右侧条目可联动高亮</div>
+          </div>
+          <div class="viewer-canvas" id="viewer-canvas">
+            <img id="page-image" alt="原始页图" draggable="false" />
+            <svg id="overlay" class="overlay" aria-label="检测框叠加层"></svg>
+            <div id="page-complete-banner" class="page-complete-banner hidden">本页已完成，请切换下一页继续。</div>
+          </div>
+        </section>
+
+        <aside class="inspector-panel">
+          <section class="selected-card page-audit-card">
+            <div class="selected-header">
+              <div>
+                <p class="eyebrow">本页漏框</p>
+                <h2 id="page-audit-title">第 ? 页待判断</h2>
+              </div>
+              <span id="page-audit-status" class="status-badge undecided">未处理</span>
+            </div>
+
+            <div class="decision-row">
+              <button id="page-missing-yes" class="decision-btn wrong" type="button">本页有漏框</button>
+              <button id="page-missing-no" class="decision-btn correct" type="button">本页无漏框</button>
+              <button id="page-missing-clear" class="decision-btn neutral" type="button">暂不判断</button>
+            </div>
+
+            <label class="note-field">
+              <span>页级备注</span>
+              <textarea id="page-audit-note" rows="3" placeholder="可记录漏框大概在何处，或这一页为什么暂时不判断。"></textarea>
+            </label>
+          </section>
+
+          <section class="selected-card">
+            <div class="selected-header">
+              <div>
+                <p class="eyebrow">当前条目</p>
+                <h2 id="selected-title">请选择一个框</h2>
+              </div>
+              <span id="selected-status" class="status-badge undecided">未处理</span>
+            </div>
+
+            <div class="decision-row">
+              <button id="mark-correct" class="decision-btn correct" type="button">框选正确</button>
+              <button id="mark-wrong" class="decision-btn wrong" type="button">框选错误</button>
+              <button id="mark-skipped" class="decision-btn neutral" type="button">暂时跳过</button>
+            </div>
+
+            <label class="note-field">
+              <span>备注</span>
+              <textarea id="decision-note" rows="4" placeholder="可记录为什么判错，或需要后续怎么处理。"></textarea>
+            </label>
+
+            <dl class="detail-list" id="selected-details"></dl>
+          </section>
+
+          <section class="items-panel">
+            <div class="items-header">
+              <h3>本页条目</h3>
+              <span id="items-count">0</span>
+            </div>
+            <div id="items-list" class="items-list"></div>
+          </section>
+        </aside>
+      </main>
+
+      <div id="floating-toolbar" class="floating-toolbar hidden" aria-label="悬浮操作条">
+        <div class="floating-toolbar-meta">
+          <span id="floating-selection-label" class="floating-selection-label">请选择一个框</span>
+          <button id="floating-clear-selection" class="floating-mini-btn" type="button">清空</button>
+        </div>
+        <div class="floating-toolbar-actions">
+          <button id="floating-prev-page" class="floating-mini-btn" type="button">上一页</button>
+          <button id="floating-next-page" class="floating-mini-btn" type="button">下一页</button>
+          <button id="floating-next-undecided" class="floating-mini-btn strong" type="button">下一个未处理</button>
+        </div>
+        <div class="floating-toolbar-actions floating-toolbar-judgement">
+          <button id="floating-mark-correct" class="decision-btn correct" type="button">框选正确</button>
+          <button id="floating-mark-wrong" class="decision-btn wrong" type="button">框选错误</button>
+          <button id="floating-mark-skipped" class="decision-btn neutral" type="button">暂时跳过</button>
+        </div>
+      </div>
+    </div>
+
+    <template id="item-row-template">
+      <button class="item-row" type="button">
+        <span class="item-row-main">
+          <span class="item-row-title"></span>
+          <span class="item-row-meta"></span>
+        </span>
+        <span class="item-row-status undecided">未处理</span>
+      </button>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
